@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="quiz-page">
+      <section class="quiz-card" aria-label="Quiz application">
+        <header class="quiz-header">
+          <div>
+            <p class="eyebrow">Knowledge Check</p>
+            <h1>JavaScript Quiz</h1>
+          </div>
+          <div class="score-chip">
+            <span class="score-label">Score</span>
+            <strong id="scoreValue">0 / 5</strong>
+          </div>
+        </header>
+
+        <div class="progress-wrap" aria-label="Quiz progress">
+          <div class="progress-meta">
+            <span id="questionCounter">Question 1</span>
+            <span id="progressLabel">20%</span>
+          </div>
+          <div class="progress-bar">
+            <span class="progress-fill" id="progressFill"></span>
+          </div>
+        </div>
+
+        <div class="quiz-content">
+          <p class="question-tag" id="questionTag">Question 1</p>
+          <h2 class="question-text" id="questionText"></h2>
+
+          <div class="options" id="optionsContainer" role="list" aria-label="Answer options"></div>
+        </div>
+
+        <footer class="quiz-footer">
+          <button type="button" class="nav-btn secondary" id="prevBtn">
+            Previous
+          </button>
+          <button type="button" class="nav-btn primary" id="nextBtn">
+            Next
+          </button>
+        </footer>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
