@@ -34,15 +34,15 @@ const questions = [
 ];
 
 // Get all the HTML elements we need to update.
-// const scoreValue = document.getElementById("scoreValue");
-// const questionCounter = document.getElementById("questionCounter");
-// const progressLabel = document.getElementById("progressLabel");
-// const progressFill = document.getElementById("progressFill");
-// const questionTag = document.getElementById("questionTag");
-// const questionText = document.getElementById("questionText");
-// const optionsContainer = document.getElementById("optionsContainer");
-// const prevBtn = document.getElementById("prevBtn");
-// const nextBtn = document.getElementById("nextBtn");
+const scoreValue = document.getElementById("scoreValue");
+const questionCounter = document.getElementById("questionCounter");
+const progressLabel = document.getElementById("progressLabel");
+const progressFill = document.getElementById("progressFill");
+const questionTag = document.getElementById("questionTag");
+const questionText = document.getElementById("questionText");
+const optionsContainer = document.getElementById("optionsContainer");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
 // // These variables keep track of the current state of the quiz.
 // let currentQuestion = 0; // current question index
