@@ -57,10 +57,10 @@ const scoreValue = document.getElementById("scoreValue");
 // }
 
 // // Update the score text shown in the top-right card.
-// function updateScore() {
-//   const currentScore = calculateScore();
-//   scoreValue.textContent = `${currentScore} / ${questions.length}`;
-// }
+function updateScore() {
+  const currentScore = calculateScore();
+  scoreValue.textContent = `${currentScore} / ${questions.length}`;
+}
 
 // // Update the progress bar and question number text.
 // function updateProgress() {
