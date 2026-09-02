@@ -56,7 +56,7 @@ const scoreValue = document.getElementById("scoreValue");
 //   }, 0);
 // }
 
-// // Update the score text shown in the top-right card.
+// Update the score text shown in the top-right card.
 function updateScore() {
   const currentScore = calculateScore();
   scoreValue.textContent = `${currentScore} / ${questions.length}`;
