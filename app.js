@@ -1,5 +1,4 @@
-// This is the quiz data.
-// Each object contains one question, all possible answers, and the correct answer.
+// Step 1: Store every question and its possible answers.
 const questions = [
   {
     question: "Which keyword is used to declare a variable that cannot be reassigned?",
@@ -33,136 +32,131 @@ const questions = [
   }
 ];
 
-// Get all the HTML elements we need to update.
+// Step 2: Find the HTML elements that JavaScript needs to update.
 const scoreValue = document.getElementById("scoreValue");
-// const questionCounter = document.getElementById("questionCounter");
-// const progressLabel = document.getElementById("progressLabel");
-// const progressFill = document.getElementById("progressFill");
-// const questionTag = document.getElementById("questionTag");
-// const questionText = document.getElementById("questionText");
-// const optionsContainer = document.getElementById("optionsContainer");
-// const prevBtn = document.getElementById("prevBtn");
-// const nextBtn = document.getElementById("nextBtn");
+const questionCounter = document.getElementById("questionCounter");
+const progressLabel = document.getElementById("progressLabel");
+const progressFill = document.getElementById("progressFill");
+const questionTag = document.getElementById("questionTag");
+const questionText = document.getElementById("questionText");
+const optionsContainer = document.getElementById("optionsContainer");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-// // These variables keep track of the current state of the quiz.
-// let currentQuestion = 0; // current question index
-// let selectedAnswers = Array(questions.length).fill(null); // stores the user's selected answer for each question
+// Step 3: Keep track of the current question and the user's answers.
+let currentQuestionIndex = 0;
+let selectedAnswers = Array(questions.length).fill(null);
 
-// // This function counts how many answers are correct.
-// function calculateScore() {
-//   return questions.reduce((total, question, index) => {
-//     const selected = selectedAnswers[index];
-//     return total + (selected === question.correct ? 1 : 0);
-//   }, 0);
-// }
-
-// Update the score text shown in the top-right card.
-function updateScore() {
-  const currentScore = calculateScore();
-  scoreValue.textContent = `${currentScore} / ${questions.length}`;
+// Step 4: Count the answers that match the correct answers.
+function calculateScore() {
+  return questions.reduce((score, question, index) => {
+    const answerIsCorrect = selectedAnswers[index] === question.correct;
+    return answerIsCorrect ? score + 1 : score;
+  }, 0);
 }
 
-// // Update the progress bar and question number text.
-// function updateProgress() {
-//   const percent = ((currentQuestion + 1) / questions.length) * 100;
-//   progressFill.style.width = `${percent}%`;
-//   progressLabel.textContent = `${Math.round(percent)}%`;
-//   questionCounter.textContent = `Question ${currentQuestion + 1}`;
-//   questionTag.textContent = `Question ${currentQuestion + 1}`;
+// Step 5: Show the current score.
+// function updateScore() {
+//   scoreValue.textContent = `${calculateScore()} / ${questions.length}`;
 // }
 
-// // This function draws the current question and its answer buttons.
+// // Step 6: Update the question number and progress bar.
+// function updateProgress() {
+//   const questionNumber = currentQuestionIndex + 1;
+//   const progressPercent = (questionNumber / questions.length) * 100;
+
+//   questionCounter.textContent = `Question ${questionNumber}`;
+//   questionTag.textContent = `Question ${questionNumber}`;
+//   progressLabel.textContent = `${Math.round(progressPercent)}%`;
+//   progressFill.style.width = `${progressPercent}%`;
+// }
+
+// // Step 7: Draw the question and create one button for each answer.
 // function renderQuestion() {
-//   const q = questions[currentQuestion];
+//   const question = questions[currentQuestionIndex];
 
-//   // Show the current question text.
-//   questionText.textContent = q.question;
-
-//   // Clear old buttons before adding new ones.
+//   questionText.textContent = question.question;
 //   optionsContainer.innerHTML = "";
 
-//   // Create a button for each answer option.
-//   q.options.forEach((option, index) => {
-//     const btn = document.createElement("button");
-//     btn.type = "button";
-//     btn.className = "option-btn";
-
-//     const letter = String.fromCharCode(65 + index);
-
-//     // If this option was already selected, highlight it.
-//     if (selectedAnswers[currentQuestion] === option) {
-//       btn.classList.add("selected");
-//     }
-
-//     btn.innerHTML = `
-//       <span class="option-letter">${letter}</span>
+//   question.options.forEach((option, optionIndex) => {
+//     const answerButton = document.createElement("button");
+//     answerButton.type = "button";
+//     answerButton.className = "option-btn";
+//     answerButton.innerHTML = `
+//       <span class="option-letter">${String.fromCharCode(65 + optionIndex)}</span>
 //       <span class="option-text">${option}</span>
 //     `;
 
-//     // When a user clicks an answer, save it and re-render the question.
-//     btn.addEventListener("click", () => {
-//       selectedAnswers[currentQuestion] = option;
-//       updateScore();
-//       renderQuestion();
-//     });
+//     if (selectedAnswers[currentQuestionIndex] === option) {
+//       answerButton.classList.add("selected");
+//     }
 
-//     optionsContainer.appendChild(btn);
+//     answerButton.addEventListener("click", () => selectAnswer(option));
+//     optionsContainer.appendChild(answerButton);
 //   });
 
-//   // Disable Previous button on the first question.
-//   prevBtn.disabled = currentQuestion === 0;
-
-//   // Change the Next button label depending on whether this is the last question.
-//   nextBtn.textContent = currentQuestion === questions.length - 1 ? "Finish" : "Next";
-
+//   prevBtn.disabled = currentQuestionIndex === 0;
+//   nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? "Finish" : "Next";
 //   updateProgress();
 // }
 
-// // Go to the previous question.
+// // Step 8: Save the selected answer and redraw the buttons.
+// function selectAnswer(answer) {
+//   selectedAnswers[currentQuestionIndex] = answer;
+//   updateScore();
+//   renderQuestion();
+// }
+
+// // Step 9: Move back one question.
 // prevBtn.addEventListener("click", () => {
-//   if (currentQuestion > 0) {
-//     currentQuestion -= 1;
+//   if (currentQuestionIndex > 0) {
+//     currentQuestionIndex -= 1;
 //     renderQuestion();
 //   }
 // });
 
-// // Go to the next question or finish the quiz.
-// nextBtn.addEventListener("click", () => {
-//   // If we are not on the last question, go to the next one.
-//   if (currentQuestion < questions.length - 1) {
-//     currentQuestion += 1;
+// // Step 10: Move forward, or show the final result on the last question.
+// function goToNextQuestion() {
+//   if (currentQuestionIndex < questions.length - 1) {
+//     currentQuestionIndex += 1;
 //     renderQuestion();
 //     return;
 //   }
 
-//   // If we are on the last question, show the final score.
+//   showResult();
+// }
+
+// nextBtn.onclick = goToNextQuestion;
+
+// // Step 11: Replace the questions with the final score.
+// function showResult() {
 //   const finalScore = calculateScore();
 
 //   questionText.textContent = `Quiz complete! You scored ${finalScore} out of ${questions.length}.`;
 //   optionsContainer.innerHTML = `
 //     <div class="result-box">
 //       <p>Great effort!</p>
-//       <span>${finalScore >= 3 ? "Nice work — you did well." : "Keep practicing and try again!"}</span>
+//       <span>${finalScore >= 3 ? "Nice work - you did well." : "Keep practicing and try again!"}</span>
 //     </div>
 //   `;
-
 //   questionCounter.textContent = "Finished";
 //   questionTag.textContent = "Result";
 //   progressLabel.textContent = "100%";
 //   progressFill.style.width = "100%";
 //   prevBtn.disabled = true;
 //   nextBtn.textContent = "Restart";
+//   nextBtn.onclick = restartQuiz;
+// }
 
-//   // Restart button behavior.
-//   nextBtn.onclick = () => {
-//     currentQuestion = 0;
-//     selectedAnswers = Array(questions.length).fill(null);
-//     updateScore();
-//     nextBtn.onclick = null;
-//     renderQuestion();
-//   };
-// });
+// // Step 12: Reset the state and start the quiz again.
+// function restartQuiz() {
+//   currentQuestionIndex = 0;
+//   selectedAnswers = Array(questions.length).fill(null);
+//   nextBtn.onclick = null;
+//   updateScore();
+//   renderQuestion();
+// }
 
-// // Start the quiz when the page loads.
+// // Step 13: Start the quiz when the page loads.
 // updateScore();
 // renderQuestion();
